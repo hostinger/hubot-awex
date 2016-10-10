@@ -11,6 +11,9 @@
 #   hubot awex ping - test API is responding
 #   hubot awex sleep <website> - Sleep website
 #   hubot awex wake <website> - Wake website
+#   hubot awex owner <website> - Get owner email by website
+#   hubot awex abuse <email> - Set user as abuse (by email)
+#   hubot awex unabuse <email> - Set user as not abuse (by email)
 #
 # Author:
 #   fordnox
@@ -55,6 +58,27 @@ module.exports = (robot) ->
   robot.respond /awex wake ([\S]+)/i, (msg) ->
     website = msg.match[1]
     hostinger_request 'POST', 'apps/' + website + '/wake',
+      {},
+      (result) ->
+        msg.send result
+
+  robot.respond /awex owner ([\S]+)/i, (msg) ->
+    website = msg.match[1]
+    hostinger_request 'GET', 'owner/' + website,
+      {},
+      (result) ->
+        msg.send result
+
+  robot.respond /awex abuse ([\S]+)/i, (msg) ->
+    email = msg.match[1]
+    hostinger_request 'POST', 'users/' + email + '/abuse',
+      {},
+      (result) ->
+        msg.send result
+
+  robot.respond /awex unabuse ([\S]+)/i, (msg) ->
+    email = msg.match[1]
+    hostinger_request 'POST', 'users/' + email + '/remove-abuse',
       {},
       (result) ->
         msg.send result
