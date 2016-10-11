@@ -1,7 +1,7 @@
 {
   "name": "hubot-awex",
   "description": "A Hubot script",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.coffee",
   "repository": {
     "type": "git",
