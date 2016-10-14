@@ -9,11 +9,11 @@
 #
 # Commands:
 #   hubot awex ping - test API is responding
-#   hubot awex sleep <website> - Sleep website
-#   hubot awex wake <website> - Wake website
-#   hubot awex owner <website> - Get owner email by website
-#   hubot awex abuse <email> - Set user as abuse (by email)
-#   hubot awex unabuse <email> - Set user as not abuse (by email)
+#   hubot awex sleep <website|app_name> - Sleep website
+#   hubot awex wake <website|app_name> - Wake website
+#   hubot awex owner <website> - Get owner email by website url
+#   hubot awex abuse <email|website|app_name> - Set user as abuse (by email, website url, app name)
+#   hubot awex unabuse <email|website|app_name> - Set user as not abuse (by email, website url, app name)
 #
 # Author:
 #   fordnox
@@ -64,7 +64,7 @@ module.exports = (robot) ->
 
   robot.respond /awex owner ([\S]+)/i, (msg) ->
     hostname = msg.match[1]
-    hostinger_request 'GET', 'owner',
+    hostinger_request 'POST', 'owner',
       {hostname : hostname},
       (result) ->
         msg.send result
@@ -78,7 +78,7 @@ module.exports = (robot) ->
 
   robot.respond /awex unabuse ([\S]+)/i, (msg) ->
     query = msg.match[1]
-    hostinger_request 'POST', 'users/' + email + '/remove-abuse',
+    hostinger_request 'POST', 'users/remove-abuse',
       {query : query},
       (result) ->
         msg.send result
