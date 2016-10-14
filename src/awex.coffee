@@ -49,36 +49,36 @@ module.exports = (robot) ->
         msg.send result
 
   robot.respond /awex sleep ([\S]+)/i, (msg) ->
-    website = msg.match[1]
-    hostinger_request 'POST', 'apps/' + website + '/sleep',
-      {},
+    query = msg.match[1]
+    hostinger_request 'POST', 'apps/sleep',
+      {query : query},
       (result) ->
         msg.send result
 
   robot.respond /awex wake ([\S]+)/i, (msg) ->
-    website = msg.match[1]
-    hostinger_request 'POST', 'apps/' + website + '/wake',
-      {},
+    query = msg.match[1]
+    hostinger_request 'POST', 'apps/wake',
+      {query : query},
       (result) ->
         msg.send result
 
   robot.respond /awex owner ([\S]+)/i, (msg) ->
-    website = msg.match[1]
-    hostinger_request 'GET', 'owner/' + website,
-      {},
+    hostname = msg.match[1]
+    hostinger_request 'GET', 'owner',
+      {hostname : hostname},
       (result) ->
         msg.send result
 
   robot.respond /awex abuse ([\S]+)/i, (msg) ->
-    email = msg.match[1]
-    hostinger_request 'POST', 'users/' + email + '/abuse',
-      {},
+    query = msg.match[1]
+    hostinger_request 'POST', 'users/abuse',
+      {query : query},
       (result) ->
         msg.send result
 
   robot.respond /awex unabuse ([\S]+)/i, (msg) ->
-    email = msg.match[1]
+    query = msg.match[1]
     hostinger_request 'POST', 'users/' + email + '/remove-abuse',
-      {},
+      {query : query},
       (result) ->
         msg.send result
