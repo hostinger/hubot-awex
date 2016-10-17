@@ -69,10 +69,9 @@ module.exports = (robot) ->
       (result) ->
         msg.send result
 
-  robot.respond /awex abuse ([\S]+)/i, (msg) ->
-    query = msg.match[1]
+  robot.respond /awex abuse ([\S]+)/ig, (msg) ->
     hostinger_request 'POST', 'users/abuse',
-      {query : query},
+      {query : msg.match},
       (result) ->
         msg.send result
 
