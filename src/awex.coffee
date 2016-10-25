@@ -89,4 +89,4 @@ module.exports = (robot) ->
     hostinger_request 'POST', 'users/impersonate',
       {query : query},
       (result) ->
-        msg.send "Email: #{result.email} Expires: #{result.expires} Url: #{result.to}"
+        msg.send "Email: #{result.email} Expires: #{result.expires} Url: #{result.url}"
