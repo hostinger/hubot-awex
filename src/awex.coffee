@@ -14,6 +14,7 @@
 #   hubot awex owner <website> - Get owner email by website url
 #   hubot awex abuse <email|website|app_name> - Set user as abuse (by email, website url, app name)
 #   hubot awex unabuse <email|website|app_name> - Set user as not abuse (by email, website url, app name)
+#   hubot awex impersonate <email|website|app_name> - Impersonate user (by email, website url, app name)
 #
 # Author:
 #   fordnox
@@ -79,6 +80,13 @@ module.exports = (robot) ->
   robot.respond /awex unabuse ([\S]+)/i, (msg) ->
     query = msg.match[1]
     hostinger_request 'POST', 'users/remove-abuse',
+      {query : query},
+      (result) ->
+        msg.send result
+
+  robot.respond /awex impersonate ([\S]+)/i, (msg) ->
+    query = msg.match[1]
+    hostinger_request 'POST', 'users/impersonate',
       {query : query},
       (result) ->
         msg.send result
