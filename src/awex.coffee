@@ -71,6 +71,13 @@ module.exports = (robot) ->
       (result) ->
         msg.send "File manager log in URL: #{result.url}"
 
+  robot.respond /awex backup ([\S]+)/i, (msg) ->
+    query = msg.match[1]
+    hostinger_request 'POST', 'apps/backup',
+      {query : query},
+      (result) ->
+        msg.send "Back ups have been queued for app #{result.app}. File manager log in URL: #{result.url}"
+
   robot.respond /awex owner ([\S]+)/i, (msg) ->
     hostname = msg.match[1]
     hostinger_request 'POST', 'owner',
