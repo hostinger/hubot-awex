@@ -13,6 +13,7 @@
 #   hubot awex wake <website|app_name> - Wake website
 #   hubot awex owner <website> - Get owner email by website url
 #   hubot awex files <website|app_name> - Impersonate file manager (by website url, app name)
+#   hubot awex abuse uid  <id> - Set user as abuse by provided related user app UID.
 #   hubot awex abuse <email|website|app_name> - Set user as abuse (by email, website url, app name)
 #   hubot awex unabuse <email|website|app_name> - Set user as not abuse (by email, website url, app name)
 #   hubot awex impersonate <email|website|app_name> - Impersonate user (by email, website url, app name)
@@ -82,6 +83,12 @@ module.exports = (robot) ->
     hostname = msg.match[1]
     hostinger_request 'POST', 'owner',
       {hostname : hostname},
+      (result) ->
+        msg.send result
+
+  robot.respond /awex abuse uid ([\S]+)/i, (msg) ->
+    uid = msg.match[1]
+    hostinger_request 'POST', 'apps/uid/'+uid+'/abuse',
       (result) ->
         msg.send result
 
